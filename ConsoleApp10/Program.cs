@@ -59,6 +59,7 @@ class Program
         Console.WriteLine("Enter file name:");
         string fileName = Console.ReadLine();
         string og = @"C:\Users\EW386RX\source\repos\ConsoleApp10\ConsoleApp10" + fileName;
+        
         try
         {
             StreamWriter writer = new StreamWriter(fileName);
@@ -67,6 +68,7 @@ class Program
                 writer.WriteLine(c.Name + ":" + c.PhoneNumber);
             }
             writer.Close();
+            Console.WriteLine("The file has been successfully created");
         }
         catch (Exception ex) { 
             Console.WriteLine("Error:" + ex.Message);
