@@ -42,7 +42,7 @@ class Program
                     SearchContact();
                     break;
                 case 5:
-                    export();
+                    exportAppend();
                     break;
                 case 6:
                     Environment.Exit(0);
@@ -54,12 +54,12 @@ class Program
             }
         }
     }
-    static void export()
+    static void exportAppend()
     {
         contacts.Sort((x,y)=>x.Name.CompareTo(y.Name));
-        Console.WriteLine("Enter file name:");
+        /*Console.WriteLine("Enter file name:");*/
         /*fileName = Console.ReadLine();*/
-        string og = @"C:\Users\EW386RX\source\repos\ConsoleApp10\" + "contact.txt";
+        string og = @"C:\Users\EW386RX\source\repos\ConsoleApp10\" + "contacts.txt";
         
         try
         {
@@ -79,6 +79,30 @@ class Program
         {
             Console.WriteLine(con.Name + " "+ con.PhoneNumber);
         }*/
+    }
+    static void export()
+    {
+        contacts.Sort((x, y) => x.Name.CompareTo(y.Name));
+        /*Console.WriteLine("Enter file name:");*/
+        /*fileName = Console.ReadLine();*/
+        string og = @"C:\Users\EW386RX\source\repos\ConsoleApp10\" + "contacts.txt";
+
+        try
+        {
+           
+            StreamWriter writer = new StreamWriter(og);
+            foreach (Contact c in contacts)
+            {
+                writer.WriteLine(c.Name + ":" + c.PhoneNumber);
+            }
+            writer.Close();
+            Console.WriteLine("The file has been successfully created");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error:" + ex.Message);
+        }
+
     }
     static void AddContact()
     {
@@ -137,13 +161,17 @@ class Program
         Contact contact = SearchContactByTerm(searchTerm);
         if (contact == null)
         {
+            
             Console.WriteLine("Contact not found");
             return;
         }
-
         contacts.Remove(contact);
-
+        export();
         Console.WriteLine("Contact deleted successfully");
+        /*foreach(Contact c in contacts)
+        {
+            Console.WriteLine(c.Name);
+        }*/
     }
 
     static void SearchContact()
