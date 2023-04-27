@@ -12,6 +12,7 @@ class Program
 {
     static List<Contact> contacts = new List<Contact>();
 
+    static string fileName;
     static void Main(string[] args)
     {
         while (true)
@@ -57,12 +58,13 @@ class Program
     {
         contacts.Sort((x,y)=>x.Name.CompareTo(y.Name));
         Console.WriteLine("Enter file name:");
-        string fileName = Console.ReadLine();
-        string og = @"C:\Users\EW386RX\source\repos\ConsoleApp10\ConsoleApp10" + fileName;
+        /*fileName = Console.ReadLine();*/
+        string og = @"C:\Users\EW386RX\source\repos\ConsoleApp10\" + "contact.txt";
         
         try
         {
-            StreamWriter writer = new StreamWriter(fileName);
+            FileStream aFile = new FileStream(og, FileMode.Append, FileAccess.Write);
+            StreamWriter writer = new StreamWriter(aFile);
             foreach(Contact c in contacts)
             {
                 writer.WriteLine(c.Name + ":" + c.PhoneNumber);
@@ -122,6 +124,7 @@ class Program
         {
             contact.PhoneNumber = newPhoneNumber;
         }
+        export();
 
         Console.WriteLine("Contact updated successfully");
     }
